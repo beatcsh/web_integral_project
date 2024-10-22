@@ -2,19 +2,19 @@ import { Schema, model } from "mongoose";
 
 const TeamSchema = new Schema([
     {
-        name: {type: String, required: true}
+        name: { type: String, required: true }
     },
     {
-        members: []
+        id_members: []
     },
     {
-        leader: {type: String, required: true}
+        leader: { type: Schema.Types.ObjectId, required: true }
     },
     {
-        round: {type: Number, required: true}
+        round: { type: Number, required: true }
     },
     {
-        score: {type: Number, required: true}
+        id_scores: { type: Number, required: true }
     }
 ])
 
