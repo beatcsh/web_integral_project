@@ -11,10 +11,10 @@ const TeamSchema = new Schema([
         leader: { type: Schema.Types.ObjectId, required: true }
     },
     {
-        round: { type: Number, required: true }
+        round: { type: Number, default: 0 }
     },
     {
-        id_scores: { type: Number, required: true }
+        id_scores: []
     }
 ])
 

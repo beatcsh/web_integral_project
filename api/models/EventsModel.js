@@ -13,10 +13,13 @@ const EventSchema = new Schema([
         ]
     },
     {
-        round: { type: Number, required: true }
+        max_round: { type: Number, required: true }
     },
     {
-        status: { type: String, enum: ['pending', 'active', 'done'], lowercase: true, required: true }
+        round: { type: Number, default: 0 }
+    },
+    {
+        status: { type: String, enum: ['pending', 'active', 'done'], lowercase: true, default: 'pending' }
     },
     {
         id_teams: []

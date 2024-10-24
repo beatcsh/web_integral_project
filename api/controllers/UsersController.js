@@ -8,6 +8,7 @@ dotenv.config()
 export default {
     register: async (req, res) => {
         try {
+
             const hash = await bcrypt.hash(req.body.password, 10)
             const user = {
                 name: req.body.name,
@@ -16,15 +17,20 @@ export default {
                 curp: req.body.curp,
                 role: req.body.role,
             }
+
             await UserModel.create(user)
-            res.status(201).json({ "status": "todo bien" })
+            res.status(200).json({ "status": "todo bien" })
+
         } catch (err) {
+
             res.status(500).json({ "status": "un quinienton" })
             console.log(err)
+
         }
     },
     login: async (req, res) => {
         try {
+
             const email = req.body.email
             const password = req.body.password
 
@@ -42,13 +48,17 @@ export default {
             // el token se devuelve con la informacion del id y del email del usuario
             const token = await jwt.sign(load, process.env.private_key)
             return res.status(200).json({ token })
+
         } catch (err) {
+
             res.status(500).json({ "status": "un quinienton" })
             console.log(err)
+
         }
     },
     update: async (req, res) => {
         try {
+
             const user = await UserModel.findById(req.params.id)
 
             if (!user) return res.status(400).json({ "status": "usuario no encontrado" })
@@ -62,9 +72,12 @@ export default {
 
             await UserModel.findByIdAndUpdate(user._id, user)
             res.status(200).json({ "status": "actualizado" })
+
         } catch (err) {
+
             res.status(500).json({ "status": "un quinienton" })
             console.log(err)
+
         }
     }
 }
