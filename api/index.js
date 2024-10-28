@@ -4,6 +4,8 @@ import helmet from "helmet"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
 import UsersController from "./controllers/UsersController.js"
+import EventsController from "./controllers/EventsController.js"
+import TeamsController from "./controllers/TeamsController.js"
 
 dotenv.config()
 
@@ -25,8 +27,16 @@ app.get('/', (req, res) => {
     res.send("get wrkng :)")
 })
 
+// user endpoints
 app.post('/user/register', UsersController.register)
 app.put('/user/update-profile/:id', UsersController.update)
 app.get('/user/login', UsersController.login)
+
+// events endpoints
+app.post('/event/create', EventsController.createEvent)
+
+// teams controller
+app.post('/team/create', TeamsController.createTeam)
+app.put('/team/eventRegister', TeamsController.eventRegister)
 
 app.listen(4000, () => console.log("svr wrkng :)"))
