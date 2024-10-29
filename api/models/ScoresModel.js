@@ -25,4 +25,4 @@ const ScoreSchema = new Schema([
     }
 ])
 
-export const ScoreModel = model("scores", ScoreSchema)
+export const ScoresModel = model("scores", ScoreSchema)

@@ -1,8 +1,10 @@
+// importar dependencias
 import express from "express"
 import cors from "cors"
 import helmet from "helmet"
 import dotenv from "dotenv"
 import mongoose from "mongoose"
+// controllers
 import UsersController from "./controllers/UsersController.js"
 import EventsController from "./controllers/EventsController.js"
 import TeamsController from "./controllers/TeamsController.js"
