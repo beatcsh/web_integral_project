@@ -103,13 +103,13 @@ export default {
             if (!event) return res.status(400).json({ "status": "evento no encontrado" })
 
             if (!['pending', 'active', 'done'].includes(req.body.status.toLowerCase())) return res.status(400).json({ "status": "status invalido en el sistema" })
-            
+
             await EventModel.findByIdAndUpdate(id_event, {
                 $set: {
                     status: req.body.status
                 }
             })
-            
+
         } catch (err) {
 
             res.status(500).json({ "status": "un quinienton" })
@@ -126,8 +126,35 @@ export default {
 
             const teamsPerRound = req.query.max_teams ? req.query.max_teams : 5
 
+            const { id_teams } = event
+
+            const scoresPerMetric = []
+
+            for (const team of id_teams) {
+                const { scores } = await ScoresModel.findOne({ id_event: id_event, id_teams: team })
+                const alreadyChecked = []
+                for (const score of scores) {
+                    const filteredScores = scores.filter(item => score.id_metric === item.id_metric && alreadyChecked.includes(score.id_metric))
+                    console.log(filteredScores)
+                    let scorePerMetric = 0
+                    if (filteredScores.length > 0) {
+                        scorePerMetric = filteredScores.reduce(a, b => a.score + b.score)
+                    }
+                    if (alreadyChecked.includes(score.id_metric)) {
+                        alreadyChecked.push(filteredScores[0].id_metric)
+                        scoresPerMetric.push({
+                            id_metric: score.id_metric,
+                            score: score.score
+                        })
+                    }
+                    console.log(scorePerMetric)
+                }
+            }
+
+            const finalScore = scoresPerMetric.reduce( a, b => a.score + b.score )
+
             // esta cosa es mi solucion
-            const best_scores = await ScoresModel.find({ id_event: id_event, round: req.body.round }).sort({ 'scores.score': -1 }).limit(teamsPerRound)
+            // const best_scores = await ScoresModel.find({ id_event: id_event, round: req.body.round }).sort({ 'scores.score': -1 }).limit(teamsPerRound)
 
         } catch (err) {
 
