@@ -1,5 +1,6 @@
 import { EventModel } from "../models/EventsModel.js"
 import { ScoresModel } from "../models/ScoresModel.js"
+import TeamsModel from "../models/TeamsModel.js"
 
 const validate_data = (metrics, name, max_round) => {
 
@@ -128,9 +129,10 @@ export default {
 
             const { id_teams } = event
 
-            const scoresPerMetric = []
+            const teamsFinalScore = []
 
             for (const team of id_teams) {
+                const scoresPerMetric = []
                 const { scores } = await ScoresModel.findOne({ id_event: id_event, id_teams: team })
                 const alreadyChecked = []
                 for (const score of scores) {
@@ -144,16 +146,45 @@ export default {
                         alreadyChecked.push(filteredScores[0].id_metric)
                         scoresPerMetric.push({
                             id_metric: score.id_metric,
-                            score: score.score
+                            score: score.score / filteredScores.length
                         })
                     }
                     console.log(scorePerMetric)
                 }
+                const finalScore = scoresPerMetric.reduce(a, b => a.score + b.score) / scoresPerMetric.length
+                console.log(finalScore)
+                teamsFinalScore.push({
+                    id_team: team,
+                    finalScore,
+                    scoresPerMetric
+                })
             }
 
-            const finalScore = scoresPerMetric.reduce( a, b => a.score + b.score )
+            const sortedTeams = teamsFinalScore.sort((a,b) => a-b)
+            // estos equipos pasan y ya
+            const passedTeams = sortedTeams.slice(0,teamsPerRound)
 
-            // esta cosa es mi solucion
+            // actualizar rondas
+            for(const team of id_teams) {
+                await TeamsModel.findByIdAndUpdate(team.id_team, {
+                    $set: {
+                        round: req.body.round
+                    }
+                })
+            }
+
+            // actualizar arreglo de equipos
+            const nextTeams = passedTeams.map((i) => i.id_team)
+            await EventModel.findByIdAndUpdate(event._id, {
+                $set: {
+                    id_teams: nextTeams,
+                    round: req.body.round
+                }
+            })
+
+            res.status(200).json({ "msg": "dios es bueno y si actualiza este endpoint" })
+
+            // esta cosa era mi solucion
             // const best_scores = await ScoresModel.find({ id_event: id_event, round: req.body.round }).sort({ 'scores.score': -1 }).limit(teamsPerRound)
 
         } catch (err) {
