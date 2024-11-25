@@ -1,6 +1,6 @@
 import { EventModel } from "../models/EventsModel.js"
 import { ScoresModel } from "../models/ScoresModel.js"
-import TeamsModel from "../models/TeamsModel.js"
+import { TeamModel } from "../models/TeamsModel.js"
 
 const validate_data = (metrics, name, max_round) => {
 

@@ -32,7 +32,7 @@ app.get('/', (req, res) => {
 // user endpoints
 app.post('/user/register', UsersController.register)
 app.put('/user/update-profile/:id', UsersController.update)
-app.get('/user/login', UsersController.login)
+app.post('/user/login', UsersController.login)
 
 // events endpoints
 app.post('/event/create', EventsController.createEvent)
