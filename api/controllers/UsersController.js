@@ -18,7 +18,7 @@ export default {
             }
 
             await UserModel.create(user)
-            res.status(200).json({ "status": "todo bien" }).send('todo bien')
+            res.status(200).json({ "status": "todo bien" })
 
         } catch (err) {
 
@@ -43,9 +43,9 @@ export default {
 
             // crear tokens
             // se necesitaba cargar la informacion con una estructura menos compleja en el objeto
-            const load = { id: user.id, email: user.email }
+            // const load = { id: user.id, email: user.email }
             // el token se devuelve con la informacion del id y del email del usuario
-            const token = await jwt.sign(load, process.env.private_key)
+            const token = await jwt.sign(JSON.stringify(user), process.env.private_key)
             return res.status(200).send({ token })
 
         } catch (err) {
