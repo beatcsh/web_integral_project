@@ -1,13 +1,9 @@
 import { useState } from "react";
-import { Container, Card, Form, Row, Col, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 import axios from "axios";
-
-interface IEvent {
-    name: string;
-    max_round: number;
-    metrics: Array<{ description: string; max_points: number }>;
-}
+import { Trash } from "react-bootstrap-icons";
+import { Container, Card, Form, Row, Col, Button } from "react-bootstrap";
+import { IEvent } from "../Types";
 
 export const CreateEvent = () => {
     const [data, setData] = useState<IEvent>({
@@ -41,6 +37,15 @@ export const CreateEvent = () => {
         setData({ ...data, metrics: [...data.metrics, newMetric] });
         setInpMetrics([...inpMetrics, inpMetrics.length + 1]);
     };
+
+    const remove = (index: number) => {
+        const updatedInpMetrics = inpMetrics.filter((_, i) => i !== index);
+        setInpMetrics(updatedInpMetrics);
+        const updatedMetrics = data.metrics.filter((_, i) => i !== index);
+        setData({ ...data, metrics: updatedMetrics });
+        console.log(data);
+    };
+    
 
     return (
         <Container className="d-flex justify-content-center align-items-center vh-100">
@@ -93,6 +98,11 @@ export const CreateEvent = () => {
                                                 type="number"
                                             />
                                         </Form.Group>
+                                    </Col>
+                                    <Col xs={1}>
+                                        <Button onClick={() => remove(index)} variant="danger">
+                                            <Trash/>
+                                        </Button>
                                     </Col>
                                 </Row>
                             ))}

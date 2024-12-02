@@ -4,6 +4,7 @@ import './App.css';
 import { Login } from './components/Login';
 import { CreateEvent } from './admins/CreateEvent';
 import { RegisterParticipant } from './participants/RegisterParticipant';
+import { CreateTeam } from './participants/CreateTeam';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
   {
     path:"/createEvent",
     element:<CreateEvent/>
+  },
+  {
+    path:"/createTeam",
+    element:<CreateTeam/>
   }
 ])
 
