@@ -61,6 +61,7 @@ export const Login = () => {
                     <li><a href="/register">registerParticipant</a></li>
                     <li><a href="/createEvent">createEvent</a></li>
                     <li><a href="/admins/dash">dashboard</a></li>
+                    <li><a href="/createTeam">createTeam</a></li>
                 </ul>
             </Container>
         </>
