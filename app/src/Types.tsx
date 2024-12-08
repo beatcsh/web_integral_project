@@ -8,7 +8,8 @@ export interface IUser {
     name: string,
     email: string,
     curp: string,
-    password: string
+    password: string,
+    role: string
 }
 
 export interface IScore {

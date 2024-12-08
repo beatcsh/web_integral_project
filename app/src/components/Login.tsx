@@ -20,8 +20,7 @@ export const Login = () => {
             Swal.fire("Enviando datos");
             Swal.showLoading();
             const response = await axios.post("http://localhost:4000/user/login", data);
-            Swal.fire("Inicio de sesion exitoso", response.data, "success");
-            navigate('/home')
+            Swal.fire("Inicio de sesion exitoso", response.data, "success").then(() => navigate('/home'));
         } catch (error: any) {
             Swal.fire("Hay un error al enviar", error.response.data.msg, "error")
         }
@@ -61,6 +60,7 @@ export const Login = () => {
                     <li><a href="/">login</a></li>
                     <li><a href="/register">registerParticipant</a></li>
                     <li><a href="/createEvent">createEvent</a></li>
+                    <li><a href="/admins/dash">dashboard</a></li>
                 </ul>
             </Container>
         </>

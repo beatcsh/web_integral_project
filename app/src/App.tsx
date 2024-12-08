@@ -6,6 +6,10 @@ import { CreateEvent } from './admins/CreateEvent';
 import { RegisterParticipant } from './participants/RegisterParticipant';
 import { CreateTeam } from './participants/CreateTeam';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Dashboard } from './admins/Dashboard';
+import { ListUser } from './admins/ListUser';
+import { ListEvents } from './admins/ListEvents';
+import { ListTeam } from './admins/ListTeam';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +35,22 @@ const router = createBrowserRouter([
   {
     path:"/createTeam",
     element:<CreateTeam/>
+  },
+  {
+    path:"/admins/dash",
+    element:<Dashboard/>
+  },
+  {
+    path:"/users/list",
+    element:<ListUser/>
+  },
+  {
+    path:"/teams/list",
+    element:<ListTeam/>
+  },
+  {
+    path:"/events/list",
+    element:<ListEvents/>
   }
 ])
 

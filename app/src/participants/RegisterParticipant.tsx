@@ -9,7 +9,8 @@ export const RegisterParticipant = () => {
         name: "",
         email: "",
         curp: "",
-        password: ""
+        password: "",
+        role: "participant"
     });
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -45,6 +45,19 @@ const validate_data = (metrics, name, max_round) => {
 }
 
 export default {
+    getEvents: async (req, res) => {
+        try {
+
+            const data = await EventModel.find()
+            return res.status(200).send(data)
+
+        } catch (err) {
+
+            res.status(500).json({ "status": "un quinienton" })
+            console.log(err)
+
+        }
+    },
     createEvent: async (req, res) => {
         try {
 

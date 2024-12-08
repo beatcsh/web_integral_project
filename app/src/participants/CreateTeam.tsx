@@ -10,8 +10,14 @@ export const CreateTeam = () => {
                         <Form>
                             <Row className="mb-3">
                                 <Col>
-                                    <Form.Group>
+                                    <Form.Group className="mb-2">
                                         <Form.Label>Nombre</Form.Label>
+                                        <Form.Control
+                                            name="name"
+                                        />
+                                    </Form.Group>
+                                    <Form.Group className="mb-2">
+                                        <Form.Label>Lider</Form.Label>
                                         <Form.Control
                                             name="name"
                                         />

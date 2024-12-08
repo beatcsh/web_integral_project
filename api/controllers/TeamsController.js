@@ -2,6 +2,19 @@ import { TeamModel } from "../models/TeamsModel.js"
 import { EventModel } from "../models/EventsModel.js"
 
 export default {
+    getTeams: async (req, res) => {
+        try {
+
+            const data = await TeamModel.find()
+            return res.status(200).send(data)
+
+        } catch (err) {
+
+            res.status(500).json({ "status": "un quinienton" })
+            console.log(err)
+
+        }
+    },
     createTeam: async (req, res) => {
         try {
 

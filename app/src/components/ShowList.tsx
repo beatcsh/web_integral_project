@@ -15,9 +15,9 @@ export const ShowList = ({ entity }: props) => {
         getData()
     }, []);
 
-    function getKeys<T>() {
-        return Object.keys({}) as (keyof T)[]
-    }
+    // function getKeys<T>() {
+    //     return Object.keys({}) as (keyof T)[]
+    // }
 
     const getData = async () => {
         try {
@@ -25,29 +25,45 @@ export const ShowList = ({ entity }: props) => {
             const { data } = await axios.get(url);
             setData(data);
         } catch (err: any) {
-            Swal.fire("No jalo","no sirve esto","error")
+            Swal.fire("No jalo", "no sirve esto", "error")
         }
     }
 
     const getColumns = () => {
-        let columns:any = [];
+        const user_columns = ["Nombre", "Correo", "Curp", "Rol"];
+        const event_columns = ["Titulo", "Maximo de rondas"];
+        const teams_columns = ["Nombre", "Lider"];
+
+        let columns: any = [];
 
         if (entity === "event") {
-            columns = getKeys<IEvent>();
+            columns = event_columns;
         } else if (entity === "team") {
-            columns = getKeys<ITeams>();
+            columns = teams_columns;
         } else if (entity === "user") {
-            columns = getKeys<IUser>();
+            columns = user_columns;
         }
 
-        const HTMLColumns = columns.map((c:any) => {
+        const HTMLColumns = columns.map((c: any) => {
             <th>{c}</th>
         })
 
         return HTMLColumns;
     }
 
-    return(
+    const getName = () => {
+        let name = "";
+        if (entity === "event") {
+            name = "Eventos";
+        } else if (entity === "team") {
+            name = "Equipos";
+        } else if (entity === "user") {
+            name = "Usuarios";
+        }
+        return name;
+    }
+
+    return (
         <Card>
             <Card.Body>
                 <Card.Title>Listado de {entity}</Card.Title>
@@ -57,11 +73,32 @@ export const ShowList = ({ entity }: props) => {
                     </thead>
                     <tbody>
                         {
-                            data.map((datum) => (
-                                <tr>
-                                    <td>{datum}</td>
-                                </tr>
-                            ))
+                            entity == "event" && (
+                                data.map((event:IEvent) => (
+                                    <tr>
+                                        <td>{event.name}</td>
+                                        <td>{event.max_round}</td>
+                                    </tr>
+                                ))
+                            ) ||
+                            entity == "team" && (
+                                data.map((team:ITeams) => (
+                                    <tr>
+                                        <td>{team.name}</td>
+                                        <td>{team.leader}</td>
+                                    </tr>
+                                ))
+                            )  ||
+                            entity == "user" && (
+                                data.map((user:IUser) => (
+                                    <tr>
+                                        <td>{user.name}</td>
+                                        <td>{user.email}</td>
+                                        <td>{user.curp}</td>
+                                        <td>{user.role}</td>
+                                    </tr>
+                                ))
+                            )                            
                         }
                     </tbody>
                 </Table>

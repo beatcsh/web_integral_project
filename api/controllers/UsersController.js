@@ -6,6 +6,20 @@ import dotenv from "dotenv"
 dotenv.config()
 
 export default {
+    
+    getUsers: async (req, res) => {
+        try {
+
+            const data = await UserModel.find()
+            return res.status(200).send(data)
+
+        } catch (err) {
+
+            res.status(500).json({ "status": "un quinienton" })
+            console.log(err)
+
+        }
+    },
     register: async (req, res) => {
         try {
 

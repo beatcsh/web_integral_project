@@ -33,12 +33,15 @@ app.get('/', (req, res) => {
 app.post('/user/register', UsersController.register)
 app.put('/user/update-profile/:id', UsersController.update)
 app.post('/user/login', UsersController.login)
+app.get('/user/list',UsersController.getUsers)
 
 // events endpoints
 app.post('/event/create', EventsController.createEvent)
+app.get('/event/list',EventsController.getEvents)
 
 // teams controller
 app.post('/team/create', TeamsController.createTeam)
 app.put('/team/eventRegister', TeamsController.eventRegister)
+app.get('/team/list',TeamsController.getTeams)
 
 app.listen(4000, () => console.log("svr wrkng :)"))
