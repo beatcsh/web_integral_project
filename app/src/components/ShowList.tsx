@@ -85,7 +85,7 @@ export const ShowList = ({ entity }: props) => {
                                 data.map((team:ITeams) => (
                                     <tr>
                                         <td>{team.name}</td>
-                                        <td>{team.leader}</td>
+                                        <td>{team.id_leader}</td>
                                     </tr>
                                 ))
                             )  ||

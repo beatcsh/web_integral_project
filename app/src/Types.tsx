@@ -28,7 +28,7 @@ export interface IScores {
 export interface ITeams {
     name: string,
     id_members: string[],
-    leader: string,
+    id_leader: string,
     round: number,
     id_scores: IScores[]
 }

@@ -8,7 +8,7 @@ const TeamSchema = new Schema([
         id_members: []
     },
     {
-        leader: { type: Schema.Types.ObjectId, required: true }
+        id_leader: { type: String, required: true }
     },
     {
         round: { type: Number, default: 0 }

@@ -21,7 +21,7 @@ export default {
             const team = {
                 name: req.body.name,
                 id_members: req.body.id_members,
-                leader: req.body.id_leader
+                id_leader: req.body.id_leader
             }
 
             await TeamModel.create(team)
